@@ -17,6 +17,7 @@
   color: #ccc;
   float: right;
   font-size: 30px;
+  cursor: pointer;
 }
 
 .closeBtn:hover, closeBtn:focus {

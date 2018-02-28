@@ -1,15 +1,15 @@
-var myModal = (function(){
+var myModal = function(){
 
   // elements
   var modal = document.getElementById('modal');
-  var modalMiddle = document.getElementsByClassName('middle')[0];
+  var content = document.getElementsByClassName('middle')[0];
 
   var modalTopBtn = document.getElementById('modalTopBtn');
   var modalMiddleBtn = document.getElementById('modalMiddleBtn');
   var modalBottomBtn = document.getElementById('modalBottomBtn');
 
   var submitBtn = document.getElementById('submitBtn');
-  var closeBtn = document.getElementById('cancelBtn');  
+  var closeBtn = document.getElementById('cancelBtn');
 
   // events
   modalTopBtn.addEventListener( 'click', openModalTop );
@@ -22,17 +22,17 @@ var myModal = (function(){
 
   // functions
   function openModalTop(){
-    modalMiddle.style.verticalAlign = "top";
+    content.style.verticalAlign = "top";
     openModal();
   }
 
   function openModalMiddle(){
-    modalMiddle.style.verticalAlign = "middle";
+    content.style.verticalAlign = "middle";
     openModal();
   }
 
   function openModalBottom(){
-    modalMiddle.style.verticalAlign = "bottom";
+    content.style.verticalAlign = "bottom";
     openModal();
   }
 
@@ -53,4 +53,6 @@ var myModal = (function(){
   return {
     openModalTop: openModalTop
   }
-})();
+};
+
+var objModal = new myModal;
