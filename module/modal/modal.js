@@ -7,70 +7,87 @@ var objModal = function(config){
       inner = document.createElement("div"),
 
       theBody = document.getElementsByTagName('body')[0],
-      theHead = document.getElementsByTagName('head')[0];
+      theHead = document.getElementsByTagName('head')[0],
+      buttons = "";
 
-      modal.id = "modal";
-      modal.className = "modal";
-      modalStyle.id = "modalStyle"
-      modalStyle.setAttribute("rel", "stylesheet");
-      modalStyle.setAttribute("href", "module/modal/modal.css");
+  modal.id = "modal";
+  modal.className = "modal";
+  modalStyle.id = "modalStyle"
+  modalStyle.setAttribute("rel", "stylesheet");
+  modalStyle.setAttribute("href", "module/modal/modal.css");
 
-      outer.className = "outer";
-      middle.className = "middle";
-      inner.className = "inner";
+  outer.className = "outer";
+  middle.className = "middle";
+  inner.className = "inner";
 
-      inner.innerHTML = '<div class="modalContainer"><i id="defaultCloseBtn" class="fa fa-close"></i></div><div>' + config.message + '</div>';
-      middle.append(inner);
-      outer.append(middle);
-      modal.append(outer);
-      theBody.append(modal);
-      theHead.appendChild(modalStyle);
+  config.submitBtn = config.submitBtn || false;
+  inner.innerHTML = '<div class="content">' + config.content + '</div>' +
+    '<div id="buttons" class="row">' +
+    '<button type="button" id="cancel" class="btn btn-secondary right">Cancel</button>' +
+    '</div>';
 
+  middle.append(inner);
+  outer.append(middle);
+  modal.append(outer);
+  theBody.append(modal);
+  theHead.appendChild(modalStyle);
 
-      // elements
-      var defaultCloseBtn = document.getElementById('defaultCloseBtn');
-      var modalClose = document.querySelector("#cancelBtn");
-      var modalSubmit = document.querySelector("#submitBtn");
+  addButtons();
 
-
-      // events
-      modalBtn.addEventListener( 'click', function(){
-        openModal(objConfig.position)
-      });
-      defaultCloseBtn.addEventListener( 'click', closeModal );
-      if (modalClose){
-        modalClose.addEventListener( 'click', closeModal );
-      }
-
-      if (modalSubmit){
-        modalSubmit.addEventListener( 'click', closeModal );
-      }
+  // elements
+  var modalClose = document.querySelector("#cancel");
+  var modalSubmit = document.querySelector("#submit");
 
 
-      // functions
-      function openModal(){
-        middle.style.verticalAlign = objConfig.position;
-        showModal();
-      }
+  // events
+  if (modalBtn){
+    modalBtn.addEventListener( 'click', function(){ openModal(config.position) });
+  }
 
-      function showModal(){
-        modal.style.display = 'block';
-      }
+  if (modalClose){
+    modalClose.addEventListener( 'click', closeModal );
+  }
 
-      function closeModal(){
-        modal.style.display = 'none';
+  if (modalSubmit){
+    modalSubmit.addEventListener( 'click', closeModal );
+  }
+
+
+  // functions
+  function openModal(){
+    middle.style.verticalAlign = config.position;
+    showModal();
+  }
+
+  function showModal(){
+    modal.style.display = 'block';
+  }
+
+  function closeModal(){
+    modal.style.display = 'none';
+    removeModal();
+  }
+
+  function clickOutsideModal(e){
+    if (e.target.classList.contains('middle')){
         removeModal();
-      }
+    }
+  }
 
-      function clickOutsideModal(e){
-        if (e.target.classList.contains('middle')){
-            removeModal();
-        }
-      }
+  function removeModal(){
+        modal.remove();
+        modalStyle.remove();
+  }
 
-      function removeModal(){
-            modal.remove();
-            modalStyle.remove();
-      }
+  function addButtons(){
+    if (config.submitBtn){
+      buttons = '<button type="button" id="submit" class="btn btn-primary right">Submit</button>' +
+        '<button type="button" id="cancel" class="btn btn-secondary right">Cancel</button>'
+    } else {
+      buttons = '<button type="button" id="cancel" class="btn btn-secondary right">Cancel</button>';
+    };
 
+    var row = document.getElementById("buttons");
+    row.innerHTML = buttons;
+  }
 }
