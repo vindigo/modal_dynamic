@@ -40,9 +40,9 @@ var objModal = function(config){
 
 
   // events
-  if (modalBtn){
-    modalBtn.addEventListener( 'click', function(){ openModal(config.position) });
-  }
+  // if (modalBtn){
+  //   modalBtn.addEventListener( 'click', function(){ openModal(config.position) });
+  // }
 
   if (modalClose){
     modalClose.addEventListener( 'click', closeModal );
@@ -65,7 +65,7 @@ var objModal = function(config){
 
   function closeModal(){
     modal.style.display = 'none';
-    removeModal();
+    // removeModal();
   }
 
   function clickOutsideModal(e){
@@ -90,4 +90,6 @@ var objModal = function(config){
     var row = document.getElementById("buttons");
     row.innerHTML = buttons;
   }
+
+  return { openModal: openModal};
 }

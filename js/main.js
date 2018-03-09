@@ -37,4 +37,13 @@ var config = {
   submitBtn: true
 }
 
-var myModal = new objModal(config);
+document.onreadystatechange = function () {
+    if (document.readyState == "interactive") {
+        var myModal = new objModal(config),
+            modalBtn = document.getElementById('modalBtn');
+
+        if (modalBtn){
+          modalBtn.addEventListener( 'click', function(){ myModal.openModal(config.position) });
+        }
+    }
+}
